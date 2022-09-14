@@ -84,28 +84,7 @@ Give the runtime of all methods when using `ClosestStrategy`.
 
 
 ## BetterStrategy
-Give the runtime of all methods when using `BetterStrategy`.
+For `BetterStrategy` you do not need to give a runtime analysis. 
+Instead, you must explain your code. What was your idea for getting a better result? What is your strategy?
 
-**BetterStrategy** <br></br>
-* `selectRobots(Job job, List<Robot> available)`: O(?)
-    * *Insert description of why the method has the given runtime*
-
-**IStrategy** <br></br>
-* ``registerRobots(List<Robot> robots)``: O(?)
-    * *Insert description of why the method has the given runtime*
-* ``registerNewJob(Job job)``: O(?)
-    * *Insert description of why the method has the given runtime*
-* ``registerJobAsFulfilled(Job job)``: O(?)
-    * *Insert description of why the method has the given runtime*
-
-**AbstractStrategy** <br></br>
-* `doJobs()`: O(?)
-    * *Insert description of why the method has the given runtime*
-* `selectJob()`: O(?)
-    * *Insert description of why the method has the given runtime*
-* `removeJob(Job job)`: O(?)
-    * *Insert description of why the method has the given runtime*
-* `assignRobots(List<Robot> selected, Job job)`: O(?)
-    * *Insert description of why the method has the given runtime*
-* `getAvailableRobots()`: O(?)
-    * *Insert description of why the method has the given runtime*
+*Write your answer here*
