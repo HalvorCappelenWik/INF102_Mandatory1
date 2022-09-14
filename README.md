@@ -92,19 +92,15 @@ Currently there is an abstract class `AbstractStrategy` which implements `IStrat
 ### Task 2.1
 Implement the selection of robots in `RandomStrategy` and `ClosestStrategy` using your code from Task 1.1 and 1.2.
 
-In `RandomStrategy`:
 ```java
-private <T> List<T> selectRandom(List<T> list, int k) {
-   throw new UnsupportedOperationException();
-}
-```
-
-In `ClosestStrategy`:
-```java
-private <T> List<T> selectSmallest(int k, List<T> list, Comparator<T> comp) {
+@Override
+public List<Robot> selectRobots(Job job) {
 	throw new UnsupportedOperationException();
 }
 ```
+
+For `ClosestStrategy` you must pass a comparator as argument. For now you can simply pass `Comparator.naturalOrder()`.
+
 
 ✅ This subtask is implemented correctly if `TestClient.java` runs for `RandomStrategy` and `ClosestStrategy`. I.e. prints out a score for the input files (the question marks should be integer values):
 ```
@@ -134,17 +130,7 @@ At the moment the comparator used when selecting the smallest elements in the ro
 What you need to do is create a comparator which will order the robots based on the distance from a given job.<br></br>
 **TODO: Create the class `ClosestComparator` which compares robots based on their distance to a given job.**
 
-After you have implemented this comparator, swap it out in `ClosestStrategy`. Swap `Comparator.naturalOrder()` with your solution:
-```java
-@Override
-protected List<Robot> selectRobots(Job job) {
-   int robotsNeeded = job.robotsNeeded;
-   if (available.size() < robotsNeeded)
-      return new ArrayList<Robot>();
-   List<Robot> selected = selectSmallest(robotsNeeded, available, Comparator.naturalOrder());
-   return selected;
-}
-```
+After you have implemented this comparator, swap it out in `ClosestStrategy`. Swap `Comparator.naturalOrder()` with your solution.
 
 ✅ Task 2.2 is correct when `ClosestStrategyTest` passes.
 
