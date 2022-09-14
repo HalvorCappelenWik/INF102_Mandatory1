@@ -86,3 +86,5 @@ Give the runtime of all methods when using `ClosestStrategy`.
 ## BetterStrategy
 For `BetterStrategy` you do not need to give a runtime analysis. 
 Instead, you must explain your code. What was your idea for getting a better result? What is your strategy?
+
+*Write your answer here*
