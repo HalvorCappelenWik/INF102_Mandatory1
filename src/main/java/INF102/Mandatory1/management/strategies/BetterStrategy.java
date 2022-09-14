@@ -8,7 +8,7 @@ import INF102.Mandatory1.management.Robot;
 public class BetterStrategy extends AbstractStrategy {
 	
 
-	protected List<Robot> selectRobots(Job job) {
+	public List<Robot> selectRobots(Job job) {
 		throw new UnsupportedOperationException();
 	}
 

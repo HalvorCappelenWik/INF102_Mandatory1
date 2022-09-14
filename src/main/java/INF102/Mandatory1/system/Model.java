@@ -84,17 +84,17 @@ public class Model implements RobotStateManager {
 	 * Initializes a Model for simulation of Robots
 	 * The simulation will score the given strategy
 	 * 
-	 * @param startLocations - positions of Robots at time 0
-	 * @param jobs - list of Jobs to be simulated
+	 * @param startLocation - positions of Robots at time 0
+	 * @param jobs2 - list of Jobs to be simulated
 	 * @param strategy - reference to a implementation of Strategy interface
 	 */
-	public Model(ArrayList<Location> startLocations, ArrayList<Job> jobs, IStrategy strategy){
-		this.numberOfRobots = startLocations.size();
+	public Model(List<Location> startLocation, List<Job> jobs2, IStrategy strategy){
+		this.numberOfRobots = startLocation.size();
 		this.events = new PriorityQueue<>();
 		this.strategy = strategy;
 
 		// setup robots
-		for (Location location: startLocations) {
+		for (Location location: startLocation) {
 			robotInfo.add(new RobotInfo(robotInfo.size(), location));
 		}
 
@@ -102,7 +102,7 @@ public class Model implements RobotStateManager {
 		this.jobs = new ArrayList<>();
 		this.robotsPresent = new ArrayList<>();
 		this.jobsFulfilled = new ArrayList<>();
-		for (Job job: jobs) {
+		for (Job job: jobs2) {
 			this.jobs.add(job);
 			this.robotsPresent.add(new HashSet<Integer>());
 			this.jobsFulfilled.add(false);
@@ -325,4 +325,7 @@ public class Model implements RobotStateManager {
 		return currentTime + from.dist(target) / RobotInfo.robotSpeed;		
 	}
 
+	public List<Job> getJobs() {
+		return jobs;
+	}
 }

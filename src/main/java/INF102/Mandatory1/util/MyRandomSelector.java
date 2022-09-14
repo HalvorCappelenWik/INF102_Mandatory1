@@ -10,7 +10,6 @@ public class MyRandomSelector implements IRandomSelector {
 	@Override
 	public <T> T removeRandom(List<T> list) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	@Override

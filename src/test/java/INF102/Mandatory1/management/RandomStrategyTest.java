@@ -1,19 +1,20 @@
 package INF102.Mandatory1.management;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import INF102.Mandatory1.management.strategies.IStrategy;
 import INF102.Mandatory1.management.strategies.RandomStrategy;
 import INF102.Mandatory1.system.Model;
 
 public class RandomStrategyTest {
 
-	static IStrategy random;
+	static RandomStrategy random;
 
 	@BeforeAll
 	public static void setUp() throws Exception {
@@ -69,6 +70,38 @@ public class RandomStrategyTest {
 		jobs.add(new Job(new Location(0, 3), 2, 1d, 1));
 		jobs.add(new Job(new Location(3, 3), 3, 1d, 1));
 		return new Model(startLocation, jobs, random);
+	}
+
+	@Test
+	public void selectCorrectAmountOfRobots() {
+		Model model = make10Job1RobotModel();
+		List<Robot> robots = model.listRobots();
+		random.registerRobots(robots);
+		List<Job> jobs = model.getJobs();
+		selectRobotsTest(jobs, robots);
+	}
+
+	@Test
+	public void returnEmptyListWhenNotEnoughRobots() {
+		Model model = make4Job4RobotModel();
+		List<Robot> robots = model.listRobots();
+		random.registerRobots(robots);
+		List<Job> jobs = model.getJobs();
+		selectRobotsTest(jobs, robots);
+	}
+
+	public void selectRobotsTest(List<Job> jobs, List<Robot> robots) {
+		for (Job job : jobs) {
+			int robotsNeeded = job.robotsNeeded;
+			int robotsAvailable = robots.size();
+			List<Robot> selected = random.selectRobots(job);
+			random.getAvailableRobots().removeAll(selected);
+			robots.removeAll(selected);
+			if (robotsNeeded > robotsAvailable)
+				assertTrue(selected.isEmpty(), "When there are not enough robots for the job selectRobots should return an empty list.");
+			else
+				assertEquals(robotsNeeded, selected.size(), "Number of selected robots (" + selected.size() + ") was not equal to the number of robots needed for the job (" + robotsNeeded + ").");
+		}
 	}
 
 	@Test
