@@ -1,0 +1,20 @@
+package INF102.Mandatory1.util;
+
+import java.util.Comparator;
+import java.util.List;
+
+public interface ISmallestSelector {
+
+	/**
+	 * Select the <code>k</code> smallest elements from <code>list</code>. 
+	 * The comparator <code>comp</code> determines the order of the elements in <code>list</code>.
+	 * 
+	 * @param <T>
+	 * @param list
+	 * @param k
+	 * @param comp
+	 * @return
+	 */
+	<T> List<T> selectSmallest(List<T> list, int k, Comparator<? super T> comp);
+	
+}
