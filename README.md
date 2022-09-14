@@ -146,7 +146,7 @@ You are not supposed to develop an optimal algorithm for manouvering the robots.
 
 **HINT**: When implementing `BetterStrategy`, overriding existing methods in `AbstractStrategy` can give you a better performance.
 
-`BetterStrategyTest` checks if `BetterStrategy` gives a better result than `RandomStrategy` and `ClosestStrategy`. Passing these tests does not mean that you will recieve full score for this task. Your goal is to recieve the lowest score possible on the simulation inputs. These values are printed when running `TestClient`.
+`BetterStrategyTest` checks if `BetterStrategy` gives a better result than `RandomStrategy` and `ClosestStrategy`. Passing these tests does not mean that you will recieve maximum amount of points for this task. Your goal is to recieve the lowest score possible on the simulation inputs. These values are printed when running `TestClient`.
 
 
 ## Grading
