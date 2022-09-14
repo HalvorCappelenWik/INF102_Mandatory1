@@ -154,7 +154,7 @@ protected List<Robot> selectRobots(Job job) {
 
 Implement your own strategy: `BetterStrategy`. Apply all your algorithmic knowledge to best manouver the robots.
 
-This task does not have a correct answer. You are not required to develop an optimal algorithm for manouvering the robots. As long as all jobs are executed then we will approve the solution. A normal algorithm has correct and incorrect answers, but in this task you are to develop a heuristic. A heuristic has many answers, some more correct than others. The primary goal in this task is not to make your code fast, but to get as low numbers as possible when running `TestClient`.  
+You are not supposed to develop an optimal algorithm for manouvering the robots. As long as all jobs are executed then we will approve the solution. A normal algorithm has correct and incorrect answers, but in this task you are to develop a heuristic. A heuristic has many answers, some better than others. The primary goal in this task is not to make your code fast, but to get as low numbers as possible when running `TestClient`.  
 
 **HINT**: When implementing `BetterStrategy`, overriding existing methods in `AbstractStrategy` can give you a better performance.
 
