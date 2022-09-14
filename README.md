@@ -102,7 +102,9 @@ public List<Robot> selectRobots(Job job) {
 For `ClosestStrategy` you must pass a comparator as argument. For now you can simply pass `Comparator.naturalOrder()`.
 
 
-✅ This subtask is implemented correctly if `TestClient.java` runs for `RandomStrategy` and `ClosestStrategy`. I.e. prints out a score for the input files (the question marks should be integer values):
+✅ This task is implemented correctly when all tests in `RandomStrategyTest` passes, and <br></br>
+✅ `returnEmptyListWhenNotEnoughRobots` and `selectCorrectAmountOfRobots` in `ClosestStrategyTest` passes, and <br></br>
+✅ `TestClient.java` runs for `RandomStrategy` and `ClosestStrategy`. I.e. prints out a score for the input files (the question marks should be integer values):
 ```
 -----Scores for Random strategy-----
 Score input/01.in: ??????
