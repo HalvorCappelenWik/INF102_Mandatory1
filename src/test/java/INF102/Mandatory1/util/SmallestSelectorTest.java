@@ -2,6 +2,7 @@ package INF102.Mandatory1.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.Random;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import INF102.Mandatory1.visualizer.StringListGenerator;
 
 
 public class SmallestSelectorTest {
@@ -63,5 +66,13 @@ public class SmallestSelectorTest {
 			numbers.add(rand.nextInt(bound));
 		}
 		return numbers;
+	}
+	
+	@Test
+	void testNotEnoughElements() {
+		assertThrows(IllegalArgumentException.class, () -> selector.selectSmallest(new ArrayList<String>(),1,Comparator.naturalOrder()));
+
+		List<String> tenStrings = StringListGenerator.generateStringList(10);
+		assertThrows(IllegalArgumentException.class, () -> selector.selectSmallest(tenStrings, 11,Comparator.naturalOrder()));
 	}
 }

@@ -2,6 +2,7 @@ package INF102.Mandatory1.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -71,8 +72,7 @@ public class RandomSelectorTest {
 			if (elem.contains(str))
 				continue;
 			assertEquals(Collections.frequency(copyList, str), Collections.frequency(list, str),
-					"Removed element from list that was not returned");
-
+					"Removed an element from list that was not returned");
 		}		
 	}
 	
@@ -92,5 +92,33 @@ public class RandomSelectorTest {
 			assertTrue(count.get(s)>65,"index "+list.indexOf(s)+" was selected too few times");
 		}
 	}
+	
+	@Test
+	void testDistributionIsRandomK() {
+		//1000 repeats with probability 1/10 gives expected count of 100
+		//Having an expected count of 65 or less happens once in 20000 times
+		List<String> list = StringListGenerator.generateStringList(10);
+		HashMap<String, Integer> count = new HashMap<>();
+		IRandomSelector selector = new MyRandomSelector();
+		for(int i=0; i<250; i++) {
+			List<String> rand = selector.removeRandom(new ArrayList<>(list),4);
+			for(String s : rand)
+				count.put(s, count.getOrDefault(s, 0)+1);
+		}
+		
+		for(String s : count.keySet()) {
+			assertTrue(count.get(s)>65,"index "+list.indexOf(s)+" was selected too few times");
+		}
+	}
+	
+	@Test
+	void testNotEnoughElements() {
+		assertThrows(IllegalArgumentException.class, () -> selector.removeRandom(new ArrayList<String>()));
+
+		List<String> tenStrings = StringListGenerator.generateStringList(10);
+		assertThrows(IllegalArgumentException.class, () -> selector.removeRandom(tenStrings, 11));
+	}
+	
+	
 
 }
