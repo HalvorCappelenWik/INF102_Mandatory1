@@ -91,6 +91,7 @@ Currently there is an abstract class `AbstractStrategy` which implements `IStrat
 
 ### Task 2.1
 Implement the selection of robots in `RandomStrategy` and `ClosestStrategy` using your code from Task 1.1 and 1.2.
+You need to make sure you select enough robots for the job. If there are not enough robots available for the job then you must return an empty list.
 
 ```java
 @Override
@@ -146,7 +147,7 @@ You are not supposed to develop an optimal algorithm for manouvering the robots.
 
 **HINT**: When implementing `BetterStrategy`, overriding existing methods in `AbstractStrategy` can give you a better performance.
 
-`BetterStrategyTest` checks if `BetterStrategy` gives a better result than `RandomStrategy` and `ClosestStrategy`. Passing these tests does not mean that you will recieve full score for this task. Your goal is to recieve the lowest score possible on the simulation inputs. These values are printed when running `TestClient`.
+`BetterStrategyTest` checks if `BetterStrategy` gives a better result than `RandomStrategy` and `ClosestStrategy`. Passing these tests does not mean that you will recieve maximum amount of points for this task. Your goal is to recieve the lowest score possible on the simulation inputs. These values are printed when running `TestClient`.
 
 
 ## Grading
