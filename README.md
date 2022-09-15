@@ -91,6 +91,7 @@ Currently there is an abstract class `AbstractStrategy` which implements `IStrat
 
 ### Task 2.1
 Implement the selection of robots in `RandomStrategy` and `ClosestStrategy` using your code from Task 1.1 and 1.2.
+You need to make sure you select enough robots for the job. If there are not enough robots available for the job then you must return an empty list.
 
 ```java
 @Override
