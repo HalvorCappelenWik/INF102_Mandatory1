@@ -10,7 +10,6 @@ public class RandomStrategy extends AbstractStrategy {
 	@Override
 	public List<Robot> selectRobots(Job job) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	@Override
