@@ -1,9 +1,6 @@
 package INF102.Mandatory1.visualizer;
 
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.PrintWriter;
-import java.util.Random;
 
 import INF102.Mandatory1.management.strategies.BetterStrategy;
 import INF102.Mandatory1.management.strategies.IStrategy;
