@@ -18,5 +18,5 @@ public interface ISmallestSelector {
 	 * @return
 	 */
 	<T> List<T> selectSmallest(List<T> list, int k, Comparator<? super T> comp);
-	
+
 }
