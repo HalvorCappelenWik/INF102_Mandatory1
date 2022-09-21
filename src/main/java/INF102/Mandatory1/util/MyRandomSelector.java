@@ -23,14 +23,12 @@ public class MyRandomSelector implements IRandomSelector {
 	// Time complexity = k
 	@Override
 	public <T> List<T> removeRandom(List<T> list, int k) {
-
-		if (list.size() == 0) throw new IllegalArgumentException("List is empty");
 		List<T> removedItems = new LinkedList<T>();
 
 		while(k > 0) {
 			if (list.size() < k) throw new IllegalArgumentException("Not enough items in list");
 			removedItems.add(removeRandom(list));
-			k --;
+			k--;
 		}
 		list.removeAll(removedItems);
 		return removedItems;

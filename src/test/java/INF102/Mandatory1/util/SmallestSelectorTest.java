@@ -56,6 +56,8 @@ public class SmallestSelectorTest {
 	public void doNotReturnReferenceToSameList() {
 		List<Integer> smallestElements = selector.selectSmallest(list, 10, Comparator.naturalOrder());
 		smallestElements.set(0, 1); // Place the element 1 on index 0
+		System.out.println(list.get(0));
+		System.out.println(smallestElements.get(0));
 		assertNotEquals(list.get(0), smallestElements.get(0));
 	}
 

@@ -145,5 +145,4 @@ public class ClosestStrategyTest {
 		model.runSimulation();
 		assertEquals(4 * 1.414, model.score(), 0.001);
 	}
-
 }
