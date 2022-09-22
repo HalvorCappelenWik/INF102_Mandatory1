@@ -93,6 +93,7 @@ public abstract class AbstractStrategy implements IStrategy {
 	 * the robots are already close to the job.
 	 */
 	protected void moveFreeRobots() {
+
 		// TODO: This method could be suited for task 3
 	}
 
