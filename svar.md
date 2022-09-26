@@ -32,11 +32,11 @@ Note that not all of these parameters will be relevant to all methods. Some meth
 Give the runtime of all methods when using `RandomStrategy`.
 
 **RandomStrategy** <br></br>
-* `selectRobots(Job job, List<Robot> available)`: O(?)
+* `selectRobots(Job job, List<Robot> available)`: O(k)
     * *Insert description of why the method has the given runtime*
 
 **IStrategy** <br></br>
-* ``registerRobots(List<Robot> robots)``: O(?)
+* ``registerRobots(List<Robot> robots)``: O(2n) -> O(n) 
     * *Insert description of why the method has the given runtime*
 * ``registerNewJob(Job job)``: O(?)
     * *Insert description of why the method has the given runtime*

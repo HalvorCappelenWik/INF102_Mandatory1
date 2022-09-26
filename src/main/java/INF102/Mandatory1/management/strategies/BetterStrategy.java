@@ -22,33 +22,31 @@ public class BetterStrategy extends AbstractStrategy {
 				else return 0;
 			}
 		};
-		super.backLog = new PriorityQueue<>(jobComp);
+		backLog = new PriorityQueue<>(jobComp);
 	}
+
 
 	@Override
 	public List<Robot> selectRobots(Job job) {
 		MySmallestSelector mySmallestSelector = new MySmallestSelector();
 		int robotsNeeded = job.robotsNeeded;
 
-		if (robotsNeeded > getAvailableRobots().size()) {
-			return new LinkedList<>();
+		if (robotsNeeded > available.size()) {
+			return new ArrayList<>();
 		}
-
-		return mySmallestSelector.selectSmallest(getAvailableRobots(),robotsNeeded, new ClosestComparator(job));
+		return mySmallestSelector.selectSmallest(available,robotsNeeded, new ClosestComparator(job));
 	}
 
 	private double jobDistanceToRobots(Job job) {
 		Location jobLocation = job.location;
 		double mean = 0;
-		for (Robot robots : getAvailableRobots()) {
+		for (Robot robots : available) {
 			double dist = robots.getLocation().dist(jobLocation);
 			mean += dist;
 		}
-		mean = mean / getAvailableRobots().size();
+		mean = mean / available.size();
 		return mean;
 	}
-
-
 
 	@Override
 	public String getName() {

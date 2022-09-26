@@ -11,21 +11,22 @@ import INF102.Mandatory1.util.MySmallestSelector;
 
 public class ClosestStrategy extends AbstractStrategy {
 
+	MySmallestSelector mySmallestSelector = new MySmallestSelector();
+
+
 	@Override
 	public List<Robot> selectRobots(Job job) {
-		MySmallestSelector mySmallestSelector = new MySmallestSelector();
 		int robotsNeeded = job.robotsNeeded;
 
-		if (robotsNeeded > getAvailableRobots().size()) {
-			return new LinkedList<>();
+		if (robotsNeeded > available.size()) {
+			return new ArrayList<>(0);
 		}
 
-		return mySmallestSelector.selectSmallest(getAvailableRobots(),robotsNeeded, new ClosestComparator(job));
-	}
+		return mySmallestSelector.selectSmallest(available,robotsNeeded, new ClosestComparator(job));
+	} // O(n * log(n))
 
 	@Override
 	public String getName() {
 		return "Closest strategy";
 	}
-
 }

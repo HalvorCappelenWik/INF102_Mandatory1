@@ -10,14 +10,14 @@ import INF102.Mandatory1.util.MyRandomSelector;
 
 public class RandomStrategy extends AbstractStrategy {
 
+	MyRandomSelector myRandomSelector = new MyRandomSelector();
+
+
 	@Override
 	public List<Robot> selectRobots(Job job) {
-		MyRandomSelector myRandomSelector = new MyRandomSelector();
-		int robotsNeeded = job.robotsNeeded;
-		if (robotsNeeded > getAvailableRobots().size()) {
-			return myRandomSelector.removeRandom(getAvailableRobots(),0);
-		}
-		return myRandomSelector.removeRandom(getAvailableRobots(),robotsNeeded);
+		if (job.robotsNeeded > available.size()) return new ArrayList<>(0);
+
+		return myRandomSelector.removeRandom(available, job.robotsNeeded); // O(k)
 	}
 
 	@Override
