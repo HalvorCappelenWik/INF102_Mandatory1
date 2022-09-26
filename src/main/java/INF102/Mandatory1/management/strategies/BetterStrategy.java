@@ -54,5 +54,4 @@ public class BetterStrategy extends AbstractStrategy {
 	public String getName() {
 		return "Better strategy";
 	}
-
 }

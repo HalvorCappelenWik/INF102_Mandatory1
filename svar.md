@@ -9,7 +9,7 @@ The runtime should be expressed using two parameters:
    * `k` - number of elements to select
 
 ### Task 1.1 - MyRandomSelector
-* `removeRandom(List<T> list)`: O(?)
+* `removeRandom(List<T> list)`: O(1)
     * *Insert description of why the method has the given runtime*
 * `removeRandom(List<T> list, int k)`: O(?)
     * *Insert description of why the method has the given runtime*
