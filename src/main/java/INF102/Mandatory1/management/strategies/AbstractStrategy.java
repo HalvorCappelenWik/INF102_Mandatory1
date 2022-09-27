@@ -76,7 +76,7 @@ public abstract class AbstractStrategy implements IStrategy {
 		if (backLog.peek().equals(job))  //O(1)
 			backLog.poll(); //O(1)
 		else
-			backLog.remove(job);  //O(n)
+			backLog.remove(job);  //O(1)
 	} //O(1) + O(n) -> O(n)
 
 	/**
@@ -95,7 +95,6 @@ public abstract class AbstractStrategy implements IStrategy {
 	 * the robots are already close to the job.
 	 */
 	protected void moveFreeRobots() {
-
 		// TODO: This method could be suited for task 3
 	}
 
