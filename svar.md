@@ -49,47 +49,49 @@ Give the runtime of all methods when using `RandomStrategy`.
     * Because AbstractStrategy.doJobs is O(n (k log(m) + nk))
 
 **AbstractStrategy** <br></br>
-* `doJobs()`: O(?)
+* `doJobs()`: O(n (k log(m) + nk))
     * *Insert description of why the method has the given runtime*
 * `selectJob()`: O(1)
     * Constant time when retrieving the head of a queue. 
-* `removeJob(Job job)`: O(1)
+* `removeJob(Job job)`: O(n)
+    * Worst case is that job is not first in the queue, this is O(n)
+* `assignRobots(List<Robot> selected, Job job)`: O(k * (log(m) + n))
     * *Insert description of why the method has the given runtime*
-* `assignRobots(List<Robot> selected, Job job)`: O(?)
-    * *Insert description of why the method has the given runtime*
-* `getAvailableRobots()`: O(?)
-    * *Insert description of why the method has the given runtime*
+* `getAvailableRobots()`: O(1)
+    * Only returns the list available, does not copy. 
 
 ## ClosestStrategy
 Give the runtime of all methods when using `ClosestStrategy`.
 
 **ClosestStrategy** <br></br>
-* `selectRobots(Job job, List<Robot> available)`: O(?)
-    * *Insert description of why the method has the given runtime*
+* `selectRobots(Job job, List<Robot> available)`: O(n * log(n))
+    * Because mySmallestSelector.selectSmallest(list, k) is O(n * log(n))
 
 **IStrategy** <br></br>
-* ``registerRobots(List<Robot> robots)``: O(?)
-    * *Insert description of why the method has the given runtime*
-* ``registerNewJob(Job job)``: O(?)
-    * *Insert description of why the method has the given runtime*
-* ``registerJobAsFulfilled(Job job)``: O(?)
-    * *Insert description of why the method has the given runtime*
+* ``registerRobots(List<Robot> robots)``: O(n)
+    * Because Arraylist.copy is O(n)
+* ``registerNewJob(Job job)``: O(n(klog(m) + nk))
+    * since AbstractStrategy.doJobs is O(n (k log(m) + nk))
+* ``registerJobAsFulfilled(Job job)``: O(n(klog(m) + nk))
+    * since AbstractStrategy.doJobs is O(n (k log(m) + nk))
 
 **AbstractStrategy** <br></br>
-* `doJobs()`: O(?)
+* `doJobs()`: O(n(klog(m) + nk))
+    * closesStrategy.selectJob will not make the runtime slower. 
+* `selectJob()`: O(1)
+    * Constant time when retrieving the head of a queue. Queue.peek is O(1)
+* `removeJob(Job job)`: O(n)
+    * Worst case is that job is not first in the queue, this is O(n)
+* `assignRobots(List<Robot> selected, Job job)`: O(k * (log(m) + n))
     * *Insert description of why the method has the given runtime*
-* `selectJob()`: O(?)
-    * *Insert description of why the method has the given runtime*
-* `removeJob(Job job)`: O(?)
-    * *Insert description of why the method has the given runtime*
-* `assignRobots(List<Robot> selected, Job job)`: O(?)
-    * *Insert description of why the method has the given runtime*
-* `getAvailableRobots()`: O(?)
-    * *Insert description of why the method has the given runtime*
+* `getAvailableRobots()`: O(1)
+    * Only returns the list available, does not copy, hence O(1)
 
 
 ## BetterStrategy
 For `BetterStrategy` you do not need to give a runtime analysis. 
 Instead, you must explain your code. What was your idea for getting a better result? What is your strategy?
 
-*Write your answer here*
+1. Select the closest available robots for a job.
+2. Select the job with the lowest average distance to the robots required to do the job. 
+3. Move robots to average location of jobs. 

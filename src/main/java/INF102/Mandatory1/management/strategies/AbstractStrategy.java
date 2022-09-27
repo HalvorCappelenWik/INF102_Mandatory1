@@ -49,12 +49,12 @@ public abstract class AbstractStrategy implements IStrategy {
 	protected void doJobs() { //
 
 
-		while (!backLog.isEmpty()) {
+		while (!backLog.isEmpty()) { //O(n)
 			Job job = selectJob(); //O(1)
-			List<Robot> selected = selectRobots(job); // Closest: O(n * log(n)) Random: O(k)
+			List<Robot> selected = selectRobots(job); // Closest: O(n * log(n)) + k
 
-			if (assignRobots(selected, job)) //
-				removeJob(job); //
+			if (assignRobots(selected, job)) //O(k * (log(m) + n))
+				removeJob(job); // O(n)
 			else
 				break;
 		}
@@ -76,7 +76,7 @@ public abstract class AbstractStrategy implements IStrategy {
 		if (backLog.peek().equals(job))  //O(1)
 			backLog.poll(); //O(1)
 		else
-			backLog.remove(job);  //O(1)
+			backLog.remove(job);  //O(n)
 	} //O(1) + O(n) -> O(n)
 
 	/**
