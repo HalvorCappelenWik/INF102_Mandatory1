@@ -10,6 +10,14 @@ import INF102.Mandatory1.util.MySmallestSelector;
 public class BetterStrategy extends AbstractStrategy {
 
 	MySmallestSelector mySmallestSelector = new MySmallestSelector();
+	private Comparator<Job> jobComparator = (o1, o2) -> {
+		double dist1 = jobDistanceToRobots(o1);
+		double dist2 = jobDistanceToRobots(o2);
+
+		if (dist1 > dist2) return 1;
+		if (dist1 < dist2) return -1;
+		else return 0;
+	};
 
 	public BetterStrategy() {
 		backLog = new PriorityQueue<>(jobComparator);
@@ -18,26 +26,12 @@ public class BetterStrategy extends AbstractStrategy {
 	@Override
 	public List<Robot> selectRobots(Job job) {
 		int robotsNeeded = job.robotsNeeded;
-
 		if (robotsNeeded > available.size()) {
 			return new ArrayList<>();
 		}
 		List<Robot> robots = mySmallestSelector.selectSmallest(available,robotsNeeded, new ClosestComparator(job));
-
 		return robots;
 	}
-
-	private Comparator<Job> jobComparator = new Comparator<Job>() {
-		@Override
-		public int compare(Job o1, Job o2) {
-			double dist1 = jobDistanceToRobots(o1);
-			double dist2 = jobDistanceToRobots(o2);
-
-			if (dist1 > dist2) return 1;
-			if (dist1 < dist2) return -1;
-			else return 0;
-		}
-	};
 
 	/**
 	 * Calculate the average distance to a job from all the available robots.
@@ -54,7 +48,6 @@ public class BetterStrategy extends AbstractStrategy {
 		mean = mean / available.size();
 		return mean;
 	}
-
 
 	@Override
 	public String getName() {
