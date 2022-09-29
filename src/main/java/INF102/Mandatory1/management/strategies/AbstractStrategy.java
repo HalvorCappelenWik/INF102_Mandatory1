@@ -47,8 +47,6 @@ public abstract class AbstractStrategy implements IStrategy {
 	 * Finds jobs in backLog and assigns robots
 	 */
 	protected void doJobs() { //
-
-
 		while (!backLog.isEmpty()) { //O(n)
 			Job job = selectJob(); //O(1)
 			List<Robot> selected = selectRobots(job); // Closest: O(n * log(n)) + k

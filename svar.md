@@ -15,7 +15,7 @@ The runtime should be expressed using two parameters:
     * Lastly we remove and return the last item from the list.
     * Since we do the swapping this method will have O(1) runtime, in both an arraylist and linkedList, since we are only accessing the end of the list. 
 * `removeRandom(List<T> list, int k)`: O(k)
-    * method has O(k) because we removeRandom(List<T> list) runs k times. 
+    * method has O(k) because removeRandom(List<T> list) runs k times. 
 
 ### Task 1.2 - MySmallestSelector
 * `selectSmallest(List<T> list, int k, Comparator<? super T> comp)`: O(n * log(n))
@@ -92,6 +92,9 @@ Give the runtime of all methods when using `ClosestStrategy`.
 For `BetterStrategy` you do not need to give a runtime analysis. 
 Instead, you must explain your code. What was your idea for getting a better result? What is your strategy?
 
-1. Select the closest available robots for a job.
-2. Select the job with the lowest average distance to the robots required to do the job. 
-3. Move robots to average location of jobs. 
+1. Select the closest available robots for a job. I.e. same as in closesStrategy. 
+2. Then I arrange the backlog such that the job with the lowest distance to the available robots is first in the queue.
+3. Move available robots that are wating for a new job to the average location of executed jobs.
+   I implemented this but saw that it did not improve the performance so i commented out the code.
+4. I think the better approach would be to implement the geometric median and then move the robots according to this. 
+   But did not have time to implement this sadly. 

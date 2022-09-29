@@ -26,5 +26,4 @@ public class ClosestComparator implements Comparator<Robot> {
         else if (distToJob1 < distToJob2) {return -1;}
         return  0;
     }
-
 }

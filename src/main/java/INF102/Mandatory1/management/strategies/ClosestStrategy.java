@@ -13,7 +13,6 @@ public class ClosestStrategy extends AbstractStrategy {
 
 	MySmallestSelector mySmallestSelector = new MySmallestSelector();
 
-
 	@Override
 	public List<Robot> selectRobots(Job job) {
 		int robotsNeeded = job.robotsNeeded;
@@ -24,6 +23,7 @@ public class ClosestStrategy extends AbstractStrategy {
 
 		return mySmallestSelector.selectSmallest(available,robotsNeeded, new ClosestComparator(job));
 	} // O(n * log(n))
+
 
 	@Override
 	public String getName() {
