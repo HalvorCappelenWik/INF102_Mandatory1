@@ -60,15 +60,19 @@ public class BetterStrategy extends AbstractStrategy {
 	@Override
 	//Move free robots to the average location of the executed jobs or to a random location.
 	protected void moveFreeRobots() {
+		int availableRobs = available.size();
+
 		if (locationsOfExecutedJobs.size() == 0) {
 			return;
 		}
 		//Location averageLocation = calculateAvgLocation(locationsOfExecutedJobs);
 		for (Robot robot : available) {
 			//robot.move(averageLocation);
-			robot.move(locationsOfExecutedJobs.get(new Random().nextInt(locationsOfExecutedJobs.size())));
+			//robot.move(locationsOfExecutedJobs.get(new Random().nextInt(locationsOfExecutedJobs.size())));
+
 		}
 	}
+
 
 
 

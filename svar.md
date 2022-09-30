@@ -10,14 +10,14 @@ The runtime should be expressed using two parameters:
 
 ### Task 1.1 - MyRandomSelector
 * `removeRandom(List<T> list)`: O(n)
-    * Because list.Remove is O(n). Both in arraylist and linkedList. We have to iterate tru the array to find the element to remove.  
+    * Because list.Remove is worst case O(n) in both arraylist and linkedList. We have to iterate tru the array to find the element to remove.  
 * `removeRandom(List<T> list, int k)`: O(nk)
     * method has O(nk) because we run removeRandom(List<T> list), which is O(n), k times. 
 
 
 ### Task 1.2 - MySmallestSelector
 * `selectSmallest(List<T> list, int k, Comparator<? super T> comp)`: O(n * log(n))
-    * We create a new copy of the list given as parameter. This is O(n) since we iterate through the list and add each element to the new list.
+    * We create a new copy of the list. This is O(n) since we iterate through the list and add each element to the new list.
       kSmallest.sort(comp); is O(n * log(n) * c) where c is the comparator used. Comparator.NaturalOrder = O(1)
       We select the k first items, this gives us O(k) and total runtime is O(n * log(n) + k)
       Ignoring constants we get runtime of O(n * log(n))
@@ -52,15 +52,17 @@ Give the runtime of all methods when using `RandomStrategy`.
 **AbstractStrategy** <br></br>
 * `doJobs()`: O(mnk)
     * Because we have a while loop going tru the backlog of jobs which is O(m), then for each job we run selectRobots which is 
-    O(nk). See comments in method for more details. 
-* `selectJob()`: O(1)
+    O(nk). See comments in method for more details.  
+    We have O(m) * (O(kn) + O(kn) + O(n)) ->  O(mkn). 
+* `selectJob()`: O(1) 
     * Constant time when retrieving the head of a queue. 
 * `removeJob(Job job)`: O(n)
     * Worst case is that job is not first in the queue, this is O(n)
 * `assignRobots(List<Robot> selected, Job job)`: O(nk)
-    * In this method  when assigning selected robots to a job, we first iterate tru the selected robots which is 
+    * In this method when assigning selected robots to a job, we first iterate tru the selected robots which is 
     O(k). Then we move the robots to the job location, which is O(log m). Then we remove the selected robot from the list of available robots which is O(n).
-    See comments in mehtod for more details. 
+    See comments in method for more details. 
+    We have O(k) * O(k*n) + (O(k) * O(log m)) -> O(k * n)
 * `getAvailableRobots()`: O(1)
     * Only returns the list available, does not copy. 
 
