@@ -9,14 +9,10 @@ The runtime should be expressed using two parameters:
    * `k` - number of elements to select
 
 ### Task 1.1 - MyRandomSelector
-* `removeRandom(List<T> list)`: O(1)
-    * This method uses random.nextint(listSize)  to find a random index in our list. This is O(1). 
-    Furthermore, we swap the item in our given random index with the last item in the list. This operation is O(1). 
-    Lastly we remove and return the last item from the list.
-    Since we do the swapping this method will have O(1) runtime, in both an arraylist and linkedList, since we are only accessing the end of the list. 
+* `removeRandom(List<T> list)`: O(n)
+    * Because list.Remove is O(n). Both in arraylist and linkedList. We have to iterate tru the array to find the element to remove.  
 * `removeRandom(List<T> list, int k)`: O(nk)
-    * method has O(nk) because arraylist.Add has worst case O(n) and we run
-    this k times. With linkedList add method has runtime O(1). 
+    * method has O(nk) because we run removeRandom(List<T> list), which is O(n), k times. 
 
 
 ### Task 1.2 - MySmallestSelector
@@ -108,5 +104,5 @@ Instead, you must explain your code. What was your idea for getting a better res
 3. Move available robots that are waiting for a new job to the average location of executed jobs.
    I implemented this but saw that it did not improve the performance so i commented out the code.
 4. I think the better approach would be to implement the geometric median and then move the robots according to this. 
-   But did not have time to implement this. 
+   But did not have time to implement this. Or move the robots according to k-means clustering. 
 
