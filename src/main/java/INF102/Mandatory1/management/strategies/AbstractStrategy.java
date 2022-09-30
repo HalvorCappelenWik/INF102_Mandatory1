@@ -33,32 +33,34 @@ public abstract class AbstractStrategy implements IStrategy {
 	@Override
 	public void registerNewJob(Job job) {
 		backLog.add(job);  //O(1)
-		doJobs();
-	}
+		doJobs(); //O(mkn)
+	} //O(mkn)
 
 	@Override
 	public void registerJobAsFulfilled(Job job, List<Robot> robots) {
 		available.addAll(robots);  //O(n)
 		backLog.peek(); //O(1)
-		doJobs();
-	}
+		doJobs(); //O(mkn)
+	} //O(mkn)
 
 	/**
 	 * Finds jobs in backLog and assigns robots
 	 */
-	protected void doJobs() { //
-		while (!backLog.isEmpty()) { //O(n)
+	protected void doJobs() {
+		while (!backLog.isEmpty()) { //O(m)
 			Job job = selectJob(); //O(1)
-			List<Robot> selected = selectRobots(job); // Closest: O(n * log(n)) + k
+			List<Robot> selected = selectRobots(job); // Closest: O(n * log(n))
+													  // Random: O(nk)
 
-			if (assignRobots(selected, job)) //O(k * (log(m) + n))
+			if (assignRobots(selected, job)) //O(k*n)
 				removeJob(job); // O(n)
 			else
 				break;
 		}
 		if (backLog.isEmpty())
 			moveFreeRobots();
-	}
+	} // Random: O(m) * (O(kn) + O(kn) + O(n) ->  O(mkn)
+	  // Closest: O(m) * (O(n * log(n)) + O(k*n) + O(n)) -> O(mkn)
 
 	/**
 	 * Selects a Job from the list of available jobs
@@ -102,32 +104,32 @@ public abstract class AbstractStrategy implements IStrategy {
 	 * @return true if robots assigned to job, false if not
 	 */
 	boolean assignRobots(List<Robot> selected, Job job) {
-		if (selected == null) //O(1)
+		if (selected == null)
 			return false;
-		if (selected.isEmpty()) //O(1)
+		if (selected.isEmpty())
 			return false;
 
-		boolean canDo = selected.size() >= job.robotsNeeded; //O(1)
-		for (Robot r : selected) { //O(k)
-			if (r.isBusy()) { //O(1)
-				System.out.println("You selected a robot that was busy."); //O(1)
-				canDo = false; //O(1)
+		boolean canDo = selected.size() >= job.robotsNeeded;
+		for (Robot r : selected) {
+			if (r.isBusy()) {
+				System.out.println("You selected a robot that was busy.");
+				canDo = false;
 			}
 		}
-		if (canDo) { //O(1)
-			for (Robot robot : selected) { // O(k) * O(log(m) * O(n) -> O(k*n)
-				robot.move(job); // O(log(m))
-				available.remove(robot); // O(n)
-			}
+		if (canDo) {
+			for (Robot robot : selected) {
+				robot.move(job);
+				available.remove(robot);
+			} // O(k) * (O(log(m) + O(n)) -> O(k*n)
 		} else {
-			for (Robot r : selected) {  //O(k) * O(log m)
-				if (!r.isBusy()) { //O(1)
-					r.move(job.location);  //O(log m)
-				}
+			for (Robot r : selected) {
+				if (!r.isBusy()) {
+					r.move(job.location);
+				} // O(k) * O(log(m)
 			}
 		}
 		return canDo;
-	}
+	} // O(k) * O(k*n) + (O(k) * O(log m)) -> O(k * n)
 
 	/**
 	 * Returns list of free robots

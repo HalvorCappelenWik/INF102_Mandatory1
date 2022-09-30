@@ -11,10 +11,7 @@ public class BetterStrategy extends AbstractStrategy {
 
 
 	MySmallestSelector mySmallestSelector = new MySmallestSelector();
-	//private final List<Location> locationsOfExecutedJobs = new ArrayList<>();
-	//Random random = new Random();
-	//private Location averageLocation;
-	//private int numLocations = 0;
+	private final List<Location> locationsOfExecutedJobs = new ArrayList<>();
 
 
 	public BetterStrategy() {
@@ -23,9 +20,7 @@ public class BetterStrategy extends AbstractStrategy {
 			double dist1 = distFromJobToRobots(o1);
 			double dist2 = distFromJobToRobots(o2);
 
-			if (dist1 > dist2) return 1;
-			if (dist1 < dist2) return -1;
-			else return 0;
+			return Double.compare(dist1, dist2);
 		};
 		backLog = new PriorityQueue<>(jobComparator);
 	}
@@ -38,11 +33,9 @@ public class BetterStrategy extends AbstractStrategy {
 			return new ArrayList<>();
 		}
 		robots = mySmallestSelector.selectSmallest(available,robotsNeeded, new ClosestComparator(job));
-		//if (robots.size() > 0) {
-			//locationsOfExecutedJobs.add(job.location);
-			//numLocations ++;
-			//addLocation(job.location);
-		//}
+		if (robots.size() > 0) {
+			locationsOfExecutedJobs.add(job.location);
+		}
 		return robots;
 	}
 
@@ -60,44 +53,35 @@ public class BetterStrategy extends AbstractStrategy {
 			totDist += dist;
 		}
 		return totDist;
-
-
 	}
 
 
-	/*
-	@Override
-	// Move available bots to the center of known job location to minimize average distance.
-	// Move available bots to the known location of where a job has been executed.
-	protected void moveFreeRobots() {
-		if (locationsOfExecutedJobs.size() == 0)
-			return;
-		int randomIndex = random.nextInt(locationsOfExecutedJobs.size());
 
+	@Override
+	//Move free robots to the average location of the executed jobs or to a random location.
+	protected void moveFreeRobots() {
+		if (locationsOfExecutedJobs.size() == 0) {
+			return;
+		}
+		//Location averageLocation = calculateAvgLocation(locationsOfExecutedJobs);
 		for (Robot robot : available) {
 			//robot.move(averageLocation);
-			robot.move((locationsOfExecutedJobs.get(0)));
+			robot.move(locationsOfExecutedJobs.get(new Random().nextInt(locationsOfExecutedJobs.size())));
 		}
 	}
 
 
-	/**
-	private void addLocation(Location location) {
-		var x = location.x;
-		var y = location.y;
 
-		if (averageLocation != null)
-		{
-			x += averageLocation.x * numLocations;
-			y += averageLocation.y * numLocations;
+	private Location calculateAvgLocation(List<Location> locations) {
+		double x = 0;
+		double y = 0;
+		for (Location location : locations) {
+			x += location.x;
+			y += location.y;
 		}
-
-		x /= numLocations;
-		y /= numLocations;
-
-		averageLocation = new Location(x, y);
+		return new Location(x / locations.size(), y / locations.size());
 	}
-	**/
+
 
 	@Override
 	public String getName() {

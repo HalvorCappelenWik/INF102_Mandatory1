@@ -11,17 +11,22 @@ The runtime should be expressed using two parameters:
 ### Task 1.1 - MyRandomSelector
 * `removeRandom(List<T> list)`: O(1)
     * This method uses random.nextint(listSize)  to find a random index in our list. This is O(1). 
-    * Furthermore, we swap the item in our given random index with the last item in the list. This operation is O(1). 
-    * Lastly we remove and return the last item from the list.
-    * Since we do the swapping this method will have O(1) runtime, in both an arraylist and linkedList, since we are only accessing the end of the list. 
-* `removeRandom(List<T> list, int k)`: O(k)
-    * method has O(k) because removeRandom(List<T> list) runs k times. 
+    Furthermore, we swap the item in our given random index with the last item in the list. This operation is O(1). 
+    Lastly we remove and return the last item from the list.
+    Since we do the swapping this method will have O(1) runtime, in both an arraylist and linkedList, since we are only accessing the end of the list. 
+* `removeRandom(List<T> list, int k)`: O(nk)
+    * method has O(nk) because arraylist.Add has worst case O(n) and we run
+    this k times. With linkedList add method has runtime O(1). 
+
 
 ### Task 1.2 - MySmallestSelector
 * `selectSmallest(List<T> list, int k, Comparator<? super T> comp)`: O(n * log(n))
-    * list.sort is O(n * log(n) * c) where c is the comparator used. Comparator.NaturalOrder = O(1)
-    * We select the k first items. 
-    * Ignoring constants we get runtime of O(n * log(n))
+    * We create a new copy of the list given as parameter. This is O(n) since we iterate through the list and add each element to the new list.
+      kSmallest.sort(comp); is O(n * log(n) * c) where c is the comparator used. Comparator.NaturalOrder = O(1)
+      We select the k first items, this gives us O(k) and total runtime is O(n * log(n) + k)
+      Ignoring constants we get runtime of O(n * log(n))
+  
+
 
 # Section 2
 In this section you must consider all methods being used for a strategy. This includes the strategy class itself (`RandomStrategy`, `ClosestStrategy` and `BetterStrategy`), as well as the methods found in `IStrategy` and `AbstractStrategy`.
@@ -37,26 +42,29 @@ Note that not all of these parameters will be relevant to all methods. Some meth
 Give the runtime of all methods when using `RandomStrategy`.
 
 **RandomStrategy** <br></br>
-* `selectRobots(Job job, List<Robot> available)`: O(k)
-    *  myRandomSelector.removeRandom(list, k) is O(k)
+* `selectRobots(Job job, List<Robot> available)`: O(nk)
+    *  since myRandomSelector.removeRandom(list, k) is O(nk)
 
 **IStrategy** <br></br>
 * ``registerRobots(List<Robot> robots)``: O(2n) -> O(n) 
-    * Because Arraylist.copy is O(n) 
-* ``registerNewJob(Job job)``: O(n (k log(m) + nk))
-    * Because AbstractStrategy.doJobs is O(n (k log(m) + nk))
-* ``registerJobAsFulfilled(Job job)``: O(n (k log(m) + nk))
-    * Because AbstractStrategy.doJobs is O(n (k log(m) + nk))
+    * Because Arraylist.copy is O(n), we ignore constants. 
+* ``registerNewJob(Job job)``: O(mnk)
+    * Because AbstractStrategy.doJobs is O(mnk) 
+* ``registerJobAsFulfilled(Job job)``: O(mnk)
+  * Because AbstractStrategy.doJobs is O(mnk)
 
 **AbstractStrategy** <br></br>
-* `doJobs()`: O(n (k log(m) + nk))
-    * *Insert description of why the method has the given runtime*
+* `doJobs()`: O(mnk)
+    * Because we have a while loop going tru the backlog of jobs which is O(m), then for each job we run selectRobots which is 
+    O(nk). See comments in method for more details. 
 * `selectJob()`: O(1)
     * Constant time when retrieving the head of a queue. 
 * `removeJob(Job job)`: O(n)
     * Worst case is that job is not first in the queue, this is O(n)
-* `assignRobots(List<Robot> selected, Job job)`: O(k * (log(m) + n))
-    * *Insert description of why the method has the given runtime*
+* `assignRobots(List<Robot> selected, Job job)`: O(nk)
+    * In this method  when assigning selected robots to a job, we first iterate tru the selected robots which is 
+    O(k). Then we move the robots to the job location, which is O(log m). Then we remove the selected robot from the list of available robots which is O(n).
+    See comments in mehtod for more details. 
 * `getAvailableRobots()`: O(1)
     * Only returns the list available, does not copy. 
 
@@ -68,24 +76,27 @@ Give the runtime of all methods when using `ClosestStrategy`.
     * Because mySmallestSelector.selectSmallest(list, k) is O(n * log(n))
 
 **IStrategy** <br></br>
-* ``registerRobots(List<Robot> robots)``: O(n)
-    * Because Arraylist.copy is O(n)
-* ``registerNewJob(Job job)``: O(n(klog(m) + nk))
-    * since AbstractStrategy.doJobs is O(n (k log(m) + nk))
-* ``registerJobAsFulfilled(Job job)``: O(n(klog(m) + nk))
-    * since AbstractStrategy.doJobs is O(n (k log(m) + nk))
+* ``registerRobots(List<Robot> robots)``: O(2n) -> O(n)
+  * Because Arraylist.copy is O(n), we ignore constants.
+* ``registerNewJob(Job job)``: O(mnk)
+  * Because AbstractStrategy.doJobs is O(mnk)
+* ``registerJobAsFulfilled(Job job)``: O(mnk)
+  * Because AbstractStrategy.doJobs is O(mnk)
 
 **AbstractStrategy** <br></br>
-* `doJobs()`: O(n(klog(m) + nk))
-    * closesStrategy.selectJob will not make the runtime slower. 
+* `doJobs()`: O(mnk)
+  * Because we have a while loop going tru the backlog of jobs which is O(m), then for each job we run selectRobots which is
+    O(n * log(n)), but this does not affect the runtime. See comments in method for more details.
 * `selectJob()`: O(1)
-    * Constant time when retrieving the head of a queue. Queue.peek is O(1)
+    * Constant time when retrieving the head of a queue.
 * `removeJob(Job job)`: O(n)
     * Worst case is that job is not first in the queue, this is O(n)
-* `assignRobots(List<Robot> selected, Job job)`: O(k * (log(m) + n))
-    * *Insert description of why the method has the given runtime*
+* `assignRobots(List<Robot> selected, Job job)`: O(n*k)
+  * In this method  when assigning selected robots to a job, we first iterate tru the selected robots which is
+    O(k). Then we move the robots to the job location, which is O(log m). Then we remove the selected robot from the list of available robots which is O(n).
+    See comments in mehtod for more details.
 * `getAvailableRobots()`: O(1)
-    * Only returns the list available, does not copy, hence O(1)
+    * Only returns the list available, does not copy.
 
 
 ## BetterStrategy
@@ -94,7 +105,8 @@ Instead, you must explain your code. What was your idea for getting a better res
 
 1. Select the closest available robots for a job. I.e. same as in closesStrategy. 
 2. Then I arrange the backlog such that the job with the lowest distance to the available robots is first in the queue.
-3. Move available robots that are wating for a new job to the average location of executed jobs.
+3. Move available robots that are waiting for a new job to the average location of executed jobs.
    I implemented this but saw that it did not improve the performance so i commented out the code.
 4. I think the better approach would be to implement the geometric median and then move the robots according to this. 
-   But did not have time to implement this sadly. 
+   But did not have time to implement this. 
+

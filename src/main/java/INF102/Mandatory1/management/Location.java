@@ -9,7 +9,8 @@ package INF102.Mandatory1.management;
  *
  */
 public class Location {
-	public final double x, y;
+	public double x;
+	public double y;
 
 	public Location(double x, double y) {
 		this.x = x;
@@ -19,7 +20,7 @@ public class Location {
 	/**
 	 * Computes the Eucleadian distance between this location and the given
 	 * location.
-	 * 
+	 *
 	 * @param l - given location
 	 * @return - The distance between the points as a double
 	 */
@@ -59,4 +60,5 @@ public class Location {
 	public String toString() {
 		return "(" + x + "," + y + ")";
 	}
+
 }

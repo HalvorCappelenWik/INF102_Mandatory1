@@ -10,14 +10,12 @@ public class MySmallestSelector implements ISmallestSelector {
     @Override
     public <T> List<T> selectSmallest(List<T> list, int k, Comparator<? super T> comp) {
         if (list.size() < k) throw new IllegalArgumentException("List is to small"); // O(1)
-        List<T> kSmallest = new LinkedList<>();  // O(1)
 
-        list.sort(comp);  // O(n * log(n) * c) where c = Comparator.NaturalOrder = O(1)
+        List<T> kSmallest = new ArrayList<>(list);  // O(n)
 
-        for (int i = 0; i < k; i++) {    // O(k)
-            kSmallest.add(list.get(i));  // best case: O(1)  worst case: O(n)
-                                         // List.get(i) if Arraylist = O(1), if linkedList = O(n)
-        }
-        return kSmallest;
-    } // O(n * log(n))
+        kSmallest.sort(comp);  // O(n * log(n) )
+
+        return kSmallest.subList(0, k); // O(k)
+
+    } // O(n * log(n) + k) -> O(n * log(n)
 }

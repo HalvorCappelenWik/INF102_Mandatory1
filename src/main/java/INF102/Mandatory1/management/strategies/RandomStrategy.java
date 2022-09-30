@@ -17,7 +17,7 @@ public class RandomStrategy extends AbstractStrategy {
 	public List<Robot> selectRobots(Job job) {
 		if (job.robotsNeeded > available.size()) return new ArrayList<>(0);
 
-		return myRandomSelector.removeRandom(available, job.robotsNeeded); // O(k)
+		return myRandomSelector.removeRandom(available, job.robotsNeeded); // worst case o(nk)
 	}
 
 	@Override
