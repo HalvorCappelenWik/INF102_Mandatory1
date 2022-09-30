@@ -60,7 +60,7 @@ public abstract class AbstractStrategy implements IStrategy {
 		if (backLog.isEmpty())
 			moveFreeRobots();
 	} // Random: O(m) * (O(kn) + O(kn) + O(n)) ->  O(mkn)
-	  // Closest: O(m) * (O(n * log(n)) + O(k*n) + O(n)) -> O(mkn)
+	  // Closest: O(m) * (O(n * log(n)) + O(k*n) + O(n)) ->  worst case O(mkn) / O(m(nlogn)
 
 	/**
 	 * Selects a Job from the list of available jobs

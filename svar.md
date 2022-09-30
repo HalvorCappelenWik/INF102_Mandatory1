@@ -83,7 +83,7 @@ Give the runtime of all methods when using `ClosestStrategy`.
 **AbstractStrategy** <br></br>
 * `doJobs()`: O(m) * (O(n * log(n)) + O(k*n) + O(n)) -> O(mkn)
   * Because we have a while loop going tru the backlog of jobs which is O(m), then for each job we run selectRobots which is
-    O(n * log(n)), but this does not affect the runtime. See comments in method for more details.
+    O(n * log(n)), See comments in method for more details.
     Assuming that mn*log n is bigger smaller than mkn. 
 * `selectJob()`: O(1)
     * Constant time when retrieving the head of a queue.
