@@ -129,7 +129,7 @@ public abstract class AbstractStrategy implements IStrategy {
 			}
 		}
 		return canDo;
-	} // O(k) * O(k*n) + (O(k) * O(log m)) -> O(k * n)
+	} // O(k) * (O(log(m) + O(n)) + (O(k) * O(log m)) -> O(k * n)
 
 	/**
 	 * Returns list of free robots

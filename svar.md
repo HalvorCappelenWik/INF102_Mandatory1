@@ -23,7 +23,6 @@ The runtime should be expressed using two parameters:
       Ignoring constants we get runtime of O(n * log(n))
   
 
-
 # Section 2
 In this section you must consider all methods being used for a strategy. This includes the strategy class itself (`RandomStrategy`, `ClosestStrategy` and `BetterStrategy`), as well as the methods found in `IStrategy` and `AbstractStrategy`.
 
@@ -82,17 +81,18 @@ Give the runtime of all methods when using `ClosestStrategy`.
   * Because AbstractStrategy.doJobs is O(mnk)
 
 **AbstractStrategy** <br></br>
-* `doJobs()`: O(mnk)
+* `doJobs()`: O(m) * (O(n * log(n)) + O(k*n) + O(n)) -> O(mkn)
   * Because we have a while loop going tru the backlog of jobs which is O(m), then for each job we run selectRobots which is
     O(n * log(n)), but this does not affect the runtime. See comments in method for more details.
+    Assuming that mn*log n is bigger smaller than mkn. 
 * `selectJob()`: O(1)
     * Constant time when retrieving the head of a queue.
 * `removeJob(Job job)`: O(n)
     * Worst case is that job is not first in the queue, this is O(n)
-* `assignRobots(List<Robot> selected, Job job)`: O(n*k)
+* `assignRobots(List<Robot> selected, Job job)`: O(k) * (O(log(m) + O(n)) + (O(k) * O(log m)) -> O(k * n)
   * In this method  when assigning selected robots to a job, we first iterate tru the selected robots which is
     O(k). Then we move the robots to the job location, which is O(log m). Then we remove the selected robot from the list of available robots which is O(n).
-    See comments in mehtod for more details.
+    See comments in method for more details.
 * `getAvailableRobots()`: O(1)
     * Only returns the list available, does not copy.
 
@@ -103,8 +103,9 @@ Instead, you must explain your code. What was your idea for getting a better res
 
 1. Select the closest available robots for a job. I.e. same as in closesStrategy. 
 2. Then I arrange the backlog such that the job with the lowest distance to the available robots is first in the queue.
-3. Move available robots that are waiting for a new job to the average location of executed jobs.
-   I implemented this but saw that it did not improve the performance so i commented out the code.
+3. In MoveAvailableRobots i first implemented so that the available robots would move to the average location of executed jobs. 
+   but this did not improve performance. Then i implemented that robots should move to a random location of the executed jobs. 
+   in some cases this does improve performance and i beat 5/6 inputs, but not regularly. 
 4. I think the better approach would be to implement the geometric median and then move the robots according to this. 
    But did not have time to implement this. Or move the robots according to k-means clustering. 
 

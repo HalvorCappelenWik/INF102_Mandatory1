@@ -68,7 +68,7 @@ public class BetterStrategy extends AbstractStrategy {
 		//Location averageLocation = calculateAvgLocation(locationsOfExecutedJobs);
 		for (Robot robot : available) {
 			//robot.move(averageLocation);
-			//robot.move(locationsOfExecutedJobs.get(new Random().nextInt(locationsOfExecutedJobs.size())));
+			robot.move(locationsOfExecutedJobs.get(new Random().nextInt(locationsOfExecutedJobs.size())));
 
 		}
 	}
